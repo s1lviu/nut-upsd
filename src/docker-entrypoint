@@ -13,8 +13,6 @@ fi
 cat >/etc/nut/ups.conf <<EOF
 [$UPS_NAME]
 	desc = "$UPS_DESC"
-	driver = $UPS_DRIVER
-	port = $UPS_PORT
 EOF
 
 cat >/etc/nut/upsd.conf <<EOF
@@ -30,11 +28,11 @@ cat >/etc/nut/upsd.users <<EOF
 
 [monitor]
 	password = $API_PASSWORD
-	upsmon master
+	monuser slave
 EOF
 
 cat >/etc/nut/upsmon.conf <<EOF
-MONITOR $UPS_NAME@localhost 1 monitor $API_PASSWORD master
+MONITOR $UPS_NAME@$UPS_HOST 1 monitor $API_PASSWORD slave
 SHUTDOWNCMD "$SHUTDOWN_CMD"
 EOF
 
